@@ -202,3 +202,10 @@ JAZZMIN_UI_TWEAKS = {
     "secondary": "#dbeafe",
     "primary": "#ffffff",
 }
+
+
+ALLOWED_HOSTS = [
+    "idrissa-porfolio-backend.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
