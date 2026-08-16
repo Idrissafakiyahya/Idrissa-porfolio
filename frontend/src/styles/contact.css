@@ -1,0 +1,107 @@
+/* ============================================
+   CONTACT SECTION STYLES
+   ============================================ */
+
+.section-title p {
+  font-size: var(--font-lg);
+  color: var(--text-light);
+  margin-top: 0;
+}
+
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  background: var(--white);
+  border-radius: 12px;
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+body.dark-mode .contact-form {
+  background: #1e293b;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: var(--font-base);
+}
+
+body.dark-mode .form-group label {
+  color: white;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--body-font);
+  font-size: var(--font-base);
+  color: var(--text-dark);
+  background: var(--white);
+  transition: var(--transition-fast);
+  box-sizing: border-box;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.contact-form .button {
+  width: 100%;
+  margin-top: var(--spacing-lg);
+}
+
+.alert {
+  margin-bottom: var(--spacing-lg);
+  animation: slideUp 300ms ease;
+}
+
+@media (max-width: 768px) {
+  .contact-form {
+    padding: var(--spacing-lg);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}

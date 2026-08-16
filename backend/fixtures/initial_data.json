@@ -1,0 +1,300 @@
+[
+  {
+    "model": "portfolio.profile",
+    "pk": 1,
+    "fields": {
+      "full_name": "Alex Johnson",
+      "title": "Full Stack Developer & Designer",
+      "bio": "I'm a passionate developer with 5+ years of experience building beautiful and functional web applications. Specializing in React, Django, and modern web technologies. I love solving complex problems and creating seamless user experiences.",
+      "email": "alex@example.com",
+      "phone": "+1 (555) 123-4567",
+      "location": "San Francisco, CA",
+      "github_url": "https://github.com",
+      "linkedin_url": "https://linkedin.com",
+      "twitter_url": "https://twitter.com",
+      "website_url": "https://example.com",
+      "profile_photo": "",
+      "resume_file": "",
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 1,
+    "fields": {
+      "name": "React",
+      "category": "frontend",
+      "proficiency": 4,
+      "icon": "",
+      "order": 1,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 2,
+    "fields": {
+      "name": "Django",
+      "category": "backend",
+      "proficiency": 4,
+      "icon": "",
+      "order": 2,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 3,
+    "fields": {
+      "name": "Python",
+      "category": "backend",
+      "proficiency": 4,
+      "icon": "",
+      "order": 3,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 4,
+    "fields": {
+      "name": "JavaScript",
+      "category": "frontend",
+      "proficiency": 4,
+      "icon": "",
+      "order": 4,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 5,
+    "fields": {
+      "name": "TypeScript",
+      "category": "frontend",
+      "proficiency": 3,
+      "icon": "",
+      "order": 5,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 6,
+    "fields": {
+      "name": "PostgreSQL",
+      "category": "database",
+      "proficiency": 3,
+      "icon": "",
+      "order": 6,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 7,
+    "fields": {
+      "name": "Docker",
+      "category": "tools",
+      "proficiency": 3,
+      "icon": "",
+      "order": 7,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 8,
+    "fields": {
+      "name": "Git & GitHub",
+      "category": "tools",
+      "proficiency": 4,
+      "icon": "",
+      "order": 8,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 1,
+    "fields": {
+      "title": "E-Commerce Platform",
+      "slug": "ecommerce-platform",
+      "short_description": "A full-featured e-commerce platform with product catalog, shopping cart, and payment integration.",
+      "description": "Built a complete e-commerce solution with React frontend and Django REST API backend. Features include user authentication, product filtering, cart management, and Stripe payment integration. Deployed on Vercel and Render with PostgreSQL database and Cloudinary for image storage.",
+      "cover_image": "",
+      "tech_stack": "React, Django, PostgreSQL, Stripe, Cloudinary",
+      "live_url": "https://example-ecommerce.com",
+      "github_url": "https://github.com/example/ecommerce",
+      "featured": true,
+      "order": 1,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 2,
+    "fields": {
+      "title": "Task Management App",
+      "slug": "task-management-app",
+      "short_description": "A collaborative task management application with real-time updates and team collaboration features.",
+      "description": "Developed a task management SPA with React and Redux for state management. Backend built with Django REST Framework providing WebSocket support for real-time updates. Features include task creation, assignment, progress tracking, and team collaboration.",
+      "cover_image": "",
+      "tech_stack": "React, Redux, Django, WebSocket, Firebase",
+      "live_url": "https://example-tasks.com",
+      "github_url": "https://github.com/example/tasks",
+      "featured": true,
+      "order": 2,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 3,
+    "fields": {
+      "title": "Analytics Dashboard",
+      "slug": "analytics-dashboard",
+      "short_description": "Interactive analytics dashboard with real-time data visualization and reporting features.",
+      "description": "Created a comprehensive analytics dashboard using React and Chart.js for data visualization. Integrated with multiple data sources and built custom APIs with Django to aggregate and serve analytics data.",
+      "cover_image": "",
+      "tech_stack": "React, Chart.js, Django, PostgreSQL, Celery",
+      "live_url": "",
+      "github_url": "https://github.com/example/analytics",
+      "featured": false,
+      "order": 3,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.experience",
+    "pk": 1,
+    "fields": {
+      "role": "Senior Full Stack Developer",
+      "company": "TechCorp Inc",
+      "location": "San Francisco, CA",
+      "start_date": "2022-01-15",
+      "end_date": null,
+      "description": "Leading development of microservices architecture using Django and React. Mentoring junior developers and conducting code reviews. Implementing CI/CD pipelines and improving system performance.",
+      "company_logo": "",
+      "order": 1,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.experience",
+    "pk": 2,
+    "fields": {
+      "role": "Full Stack Developer",
+      "company": "StartupXYZ",
+      "location": "San Francisco, CA",
+      "start_date": "2020-06-01",
+      "end_date": "2021-12-31",
+      "description": "Built and maintained web applications using React and Django. Implemented responsive UI components and optimized database queries. Collaborated with product team on feature development.",
+      "company_logo": "",
+      "order": 2,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.experience",
+    "pk": 3,
+    "fields": {
+      "role": "Junior Developer",
+      "company": "Web Solutions Ltd",
+      "location": "Remote",
+      "start_date": "2019-03-01",
+      "end_date": "2020-05-31",
+      "description": "Contributed to front-end development of client websites. Learned full-stack development practices and best practices. Participated in daily stand-ups and sprint planning.",
+      "company_logo": "",
+      "order": 3,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.education",
+    "pk": 1,
+    "fields": {
+      "institution": "State University",
+      "degree": "Bachelor of Science",
+      "field": "Computer Science",
+      "start_date": "2015-09-01",
+      "end_date": "2019-05-31",
+      "description": "Graduated with honors. Relevant coursework: Data Structures, Algorithms, Database Design, Web Development, Software Engineering.",
+      "order": 1,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.education",
+    "pk": 2,
+    "fields": {
+      "institution": "Online Academy",
+      "degree": "Certificate",
+      "field": "Full Stack Web Development",
+      "start_date": "2018-06-01",
+      "end_date": "2018-12-31",
+      "description": "Intensive bootcamp covering modern web development stack. Built several full-stack projects from concept to deployment.",
+      "order": 2,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.testimonial",
+    "pk": 1,
+    "fields": {
+      "name": "Sarah Smith",
+      "role": "CEO at TechCorp Inc",
+      "photo": "",
+      "message": "Alex is an exceptional developer who consistently delivers high-quality work. Their attention to detail and problem-solving skills have greatly contributed to our project's success.",
+      "rating": 5,
+      "order": 1,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.testimonial",
+    "pk": 2,
+    "fields": {
+      "name": "John Chen",
+      "role": "Product Manager at StartupXYZ",
+      "photo": "",
+      "message": "Working with Alex was a pleasure. They have deep technical knowledge and great communication skills. Highly recommended!",
+      "rating": 5,
+      "order": 2,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.testimonial",
+    "pk": 3,
+    "fields": {
+      "name": "Maria Garcia",
+      "role": "Designer at Web Solutions Ltd",
+      "photo": "",
+      "message": "Alex transformed our designs into beautiful, functional websites. Great collaboration and always willing to go the extra mile.",
+      "rating": 4,
+      "order": 3,
+      "created_at": "2026-08-16T00:00:00Z",
+      "updated_at": "2026-08-16T00:00:00Z"
+    }
+  }
+]

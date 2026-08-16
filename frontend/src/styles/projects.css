@@ -1,0 +1,227 @@
+/* ============================================
+   PROJECTS SECTION STYLES
+   ============================================ */
+
+.projects-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-dark);
+  user-select: none;
+}
+
+body.dark-mode .filter-checkbox {
+  color: #e2e8f0;
+}
+
+.filter-checkbox input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Category Filter Styles */
+.category-filter {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-3xl);
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: 1px solid #cbd5e1;
+  background: transparent;
+  color: var(--text-dark);
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.category-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.category-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12);
+}
+
+body.dark-mode .category-btn {
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.dark-mode .category-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+body.dark-mode .category-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.project-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+body.dark-mode .project-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-8px);
+}
+
+.project-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-fast);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.featured-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--accent);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: 20px;
+  font-size: var(--font-sm);
+  font-weight: 700;
+  z-index: 10;
+}
+
+/* Project Badges Container */
+.project-badges {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 10;
+}
+
+.category-badge {
+  background: var(--primary);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 15px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  z-index: 10;
+}
+
+.project-content {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-content h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--text-dark);
+  font-size: var(--font-xl);
+}
+
+body.dark-mode .project-content h3 {
+  color: white;
+}
+
+.project-description {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-lg);
+  flex-grow: 1;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.tech-tag {
+  display: inline-block;
+  background: var(--bg-lighter);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+body.dark-mode .tech-tag {
+  background: #334155;
+  color: #93c5fd;
+}
+
+.project-links {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.button.small {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-sm);
+  flex: 1;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-links {
+    flex-direction: column;
+  }
+
+  .button.small {
+    flex: none;
+  }
+}
