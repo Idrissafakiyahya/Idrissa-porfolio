@@ -19,11 +19,23 @@ def diag(request):
         "allowed_hosts": settings.ALLOWED_HOSTS,
     })
 
+
+def whoami(request):
+    # return host-related headers to help diagnose Bad Request (400)
+    return JsonResponse({
+        "request_get_host": request.get_host(),
+        "http_host": request.META.get('HTTP_HOST'),
+        "x_forwarded_host": request.META.get('HTTP_X_FORWARDED_HOST'),
+        "x_forwarded_for": request.META.get('HTTP_X_FORWARDED_FOR'),
+        "x_forwarded_proto": request.META.get('HTTP_X_FORWARDED_PROTO'),
+    })
+
 urlpatterns = [
     path('', health_check, name='health-check'),  # Root endpoint
     path('health/', health_check, name='health-check-alt'),
     path('admin/', admin.site.urls),
     path('diag/', diag, name='diagnostics'),
+    path('whoami/', whoami, name='whoami'),
     path('api/', include('portfolio.urls')),
 ]
 
