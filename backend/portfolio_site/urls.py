@@ -9,26 +9,34 @@ from django.http import JsonResponse
 
 # Health check endpoint (no database required)
 def health_check(request):
-    return JsonResponse({"status": "ok", "message": "Backend is running"})
+    try:
+        return JsonResponse({"status": "ok", "message": "Backend is running"})
+    except Exception as e:
+        return JsonResponse({"status": "error", "error": str(e)}, status=500)
 
 
 def diag(request):
-    # diagnostic endpoint: returns non-sensitive runtime settings useful for debugging
-    return JsonResponse({
-        "debug": bool(settings.DEBUG),
-        "allowed_hosts": settings.ALLOWED_HOSTS,
-    })
+    try:
+        # diagnostic endpoint: returns non-sensitive runtime settings useful for debugging
+        return JsonResponse({
+            "debug": bool(settings.DEBUG),
+            "allowed_hosts": settings.ALLOWED_HOSTS,
+            "secret_key_set": bool(settings.SECRET_KEY and settings.SECRET_KEY != 'django-insecure-dev-key-change-in-production'),
+        })
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 def whoami(request):
-    # return host-related headers to help diagnose Bad Request (400)
-    return JsonResponse({
-        "request_get_host": request.get_host(),
-        "http_host": request.META.get('HTTP_HOST'),
-        "x_forwarded_host": request.META.get('HTTP_X_FORWARDED_HOST'),
-        "x_forwarded_for": request.META.get('HTTP_X_FORWARDED_FOR'),
-        "x_forwarded_proto": request.META.get('HTTP_X_FORWARDED_PROTO'),
-    })
+    try:
+        # return host-related headers to help diagnose issues
+        return JsonResponse({
+            "http_host": request.META.get('HTTP_HOST', 'NOT SET'),
+            "x_forwarded_host": request.META.get('HTTP_X_FORWARDED_HOST', 'NOT SET'),
+            "x_forwarded_proto": request.META.get('HTTP_X_FORWARDED_PROTO', 'NOT SET'),
+        })
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 urlpatterns = [
     path('', health_check, name='health-check'),  # Root endpoint
