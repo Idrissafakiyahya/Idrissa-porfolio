@@ -11,10 +11,19 @@ from django.http import JsonResponse
 def health_check(request):
     return JsonResponse({"status": "ok", "message": "Backend is running"})
 
+
+def diag(request):
+    # diagnostic endpoint: returns non-sensitive runtime settings useful for debugging
+    return JsonResponse({
+        "debug": bool(settings.DEBUG),
+        "allowed_hosts": settings.ALLOWED_HOSTS,
+    })
+
 urlpatterns = [
     path('', health_check, name='health-check'),  # Root endpoint
     path('health/', health_check, name='health-check-alt'),
     path('admin/', admin.site.urls),
+    path('diag/', diag, name='diagnostics'),
     path('api/', include('portfolio.urls')),
 ]
 
