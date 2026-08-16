@@ -6,9 +6,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio_site.settings')
 django.setup()
 
 User = get_user_model()
-username = 'admin'
-email = 'admin@example.com'
-password = 'AdminPass123!'
+username = 'Idrissa'
+email = 'idrissa@example.com'
+# NOTE: For security, run this script manually and avoid committing secrets in real projects.
+password = 'idrissa2003'
 
 qs = User.objects.filter(username=username)
 if qs.exists():
