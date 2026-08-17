@@ -179,6 +179,14 @@ CORS_ALLOWED_ORIGINS = config(
     default='http://localhost:5173,http://127.0.0.1:5173'
 ).split(',')
 CORS_ALLOWED_ORIGINS = [origin.strip() for origin in CORS_ALLOWED_ORIGINS]
+# Allow the frontend deployed on Vercel; make configurable via env var
+VERCEL_ORIGIN = config('VERCEL_ORIGIN', default='https://idrissa-fakiyahya.vercel.app')
+if VERCEL_ORIGIN and VERCEL_ORIGIN not in CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS.append(VERCEL_ORIGIN)
+
+# Allow all Vercel preview/deployment domains (*.vercel.app)
+# This covers dynamic preview URLs without needing an env var for each
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.vercel\.app$"]
 
 # Email configuration
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
