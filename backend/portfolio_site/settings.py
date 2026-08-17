@@ -6,6 +6,28 @@ import os
 from pathlib import Path
 from decouple import config
 import dj_database_url
+import sys
+
+# Compatibility shim: some Python 3.14 + Django combinations raise
+# "'super' object has no attribute 'dicts'" when copying template
+# contexts. Monkeypatch BaseContext.__copy__ to a safer implementation
+# so admin changelists render while we ensure the runtime/Django versions
+# are aligned in production. Remove this when you upgrade Django or
+# pin the Python runtime to 3.11 on Render.
+try:
+    if sys.version_info >= (3, 14):
+        from django.template.context import BaseContext
+
+        def _basecontext_copy(self):
+            # Create a fresh instance of the same class and copy dicts
+            new_ctx = type(self)()
+            new_ctx.dicts = list(self.dicts)
+            return new_ctx
+
+        BaseContext.__copy__ = _basecontext_copy
+except Exception:
+    # If Django isn't importable yet or something else fails, skip shim
+    pass
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
