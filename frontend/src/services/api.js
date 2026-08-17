@@ -1,7 +1,15 @@
 import axios from 'axios';
 
 // Get API base URL from environment variable or use default
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+// Normalize so callers can set either `https://host` or `https://host/api`.
+const rawBase = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = (() => {
+  if (!rawBase) return 'http://localhost:8000/api';
+  // remove trailing slash
+  const cleaned = rawBase.replace(/\/+$/, '');
+  // ensure it ends with /api
+  return cleaned.endsWith('/api') ? cleaned : `${cleaned}/api`;
+})();
 
 // Create axios instance with default config
 const api = axios.create({

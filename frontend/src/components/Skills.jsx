@@ -18,9 +18,13 @@ const Skills = () => {
     { value: 'social', label: 'Social' },
   ];
 
+  // `skills` may be null, an array, or an array of objects with different fields.
+  // Normalize to an array of simple skill objects.
+  const normalized = Array.isArray(skills) ? skills : (skills || []);
+
   const filteredSkills = selectedCategory === 'all'
-    ? skills
-    : skills?.filter(skill => skill.category === selectedCategory);
+    ? normalized
+    : normalized.filter(skill => (skill.category || '').toString() === selectedCategory);
 
   const SkillSkeleton = () => (
     <div className="skill-card skeleton-loader" style={{ height: '120px' }}></div>
@@ -48,22 +52,25 @@ const Skills = () => {
         <div className="skills-grid">
           {loading
             ? Array(8).fill(0).map((_, i) => <SkillSkeleton key={i} />)
-            : filteredSkills?.map(skill => (
-                <div key={skill.id} className="skill-card animate-slide-up">
+            : filteredSkills?.map((skill, idx) => (
+                <div key={skill.id || skill.name || idx} className="skill-card animate-slide-up">
                   {skill.icon && (
                     <img src={skill.icon} alt={skill.name} className="skill-icon" />
                   )}
-                  <h4>{skill.name}</h4>
-                  <p className="skill-category">{skill.category_display}</p>
-                  <div className="skill-proficiency">
-                    <div className="proficiency-bar">
-                      <div
-                        className="proficiency-fill"
-                        style={{ width: `${(skill.proficiency / 4) * 100}%` }}
-                      ></div>
+                  <h4>{skill.name || skill.title || 'Untitled'}</h4>
+                  <p className="skill-category">{skill.category_display || skill.category || ''}</p>
+                  {/* Optional fields: if backend doesn't provide proficiency, skip bar */}
+                  {typeof skill.proficiency === 'number' && (
+                    <div className="skill-proficiency">
+                      <div className="proficiency-bar">
+                        <div
+                          className="proficiency-fill"
+                          style={{ width: `${(skill.proficiency / 4) * 100}%` }}
+                        ></div>
+                      </div>
+                      <span className="proficiency-level">{skill.proficiency_display || ''}</span>
                     </div>
-                    <span className="proficiency-level">{skill.proficiency_display}</span>
-                  </div>
+                  )}
                 </div>
               ))}
         </div>

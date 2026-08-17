@@ -13,13 +13,29 @@ export const useFetch = (fetchFunction, dependencies = []) => {
         setLoading(true);
         setError(null);
         const response = await fetchFunction();
-        
-        if (isMounted) {
-          // Handle different response formats
-          if (response.data) {
-            // If response has 'results' (pagination), use that, otherwise use data directly
-            setData(response.data.results || response.data);
-          }
+
+        if (!isMounted) return;
+
+        // response may be an axios response (has .data), a fetch Response (use json),
+        // or the function might already return parsed JSON.
+        let payload = null;
+
+        if (response && typeof response === 'object' && 'data' in response) {
+          payload = response.data;
+        } else if (response && typeof response.json === 'function') {
+          // fetch Response
+          payload = await response.json();
+        } else {
+          payload = response;
+        }
+
+        // If paginated (DRF), use results; otherwise use payload directly
+        if (payload && Array.isArray(payload)) {
+          setData(payload);
+        } else if (payload && payload.results) {
+          setData(payload.results);
+        } else {
+          setData(payload);
         }
       } catch (err) {
         if (isMounted) {
