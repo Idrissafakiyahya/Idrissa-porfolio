@@ -19,9 +19,20 @@ try:
         from django.template.context import BaseContext
 
         def _basecontext_copy(self):
-            # Create a fresh instance of the same class and copy dicts
-            new_ctx = type(self)()
+            # Use __new__ to create instance without calling __init__
+            # (avoids issues with RequestContext requiring a 'request' arg)
+            from copy import copy as copy_obj
+            new_ctx = object.__new__(type(self))
+            # Copy the dicts attribute
             new_ctx.dicts = list(self.dicts)
+            # Copy other attributes that might exist on subclasses
+            for key, value in self.__dict__.items():
+                if key != 'dicts':
+                    try:
+                        setattr(new_ctx, key, copy_obj(value) if hasattr(value, '__iter__') and not isinstance(value, (str, bytes)) else value)
+                    except Exception:
+                        # If copy fails, just assign the reference
+                        setattr(new_ctx, key, value)
             return new_ctx
 
         BaseContext.__copy__ = _basecontext_copy
