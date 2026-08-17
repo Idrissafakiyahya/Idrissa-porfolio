@@ -11,6 +11,16 @@ const API_BASE_URL = (() => {
   return cleaned.endsWith('/api') ? cleaned : `${cleaned}/api`;
 })();
 
+// Helpful debug: show resolved API base during development builds
+try {
+  if (import.meta.env && import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
+    console.info('Resolved API_BASE_URL ->', API_BASE_URL);
+  }
+} catch (e) {
+  // ignore in environments without import.meta
+}
+
 // Create axios instance with default config
 const api = axios.create({
   baseURL: API_BASE_URL,
