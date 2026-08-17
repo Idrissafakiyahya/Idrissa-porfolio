@@ -101,7 +101,11 @@ const Hero = () => {
                 Get in Touch
               </a>
               {profile.resume_file && (
-                <a href={profile.resume_file} target="_blank" rel="noopener noreferrer" className="button secondary">
+                <a 
+                  href={profile.resume_file} 
+                  download="resume"
+                  className="button secondary"
+                >
                   Download Resume
                 </a>
               )}
