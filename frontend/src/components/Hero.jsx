@@ -94,7 +94,7 @@ const Hero = () => {
           </div>
 
           <div className="hero-details">
-            <p className="hero-description">{profile.bio}</p>
+            <p className="hero-description">{profile.hero_bio}</p>
 
             <div className="hero-actions">
               <a href={`mailto:${profile.email}`} className="button">

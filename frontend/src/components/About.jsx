@@ -28,7 +28,7 @@ const About = () => {
         <div className="about-content">
           <div className="about-text animate-slide-in">
             <h3>Who I Am</h3>
-            <p>{profile.bio}</p>
+            <p>{profile.about_bio}</p>
             
             <div className="about-info">
               <div className="info-item">

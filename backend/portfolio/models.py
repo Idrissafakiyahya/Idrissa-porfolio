@@ -7,7 +7,8 @@ class Profile(models.Model):
     """Single instance model for portfolio owner's profile - SINGLETON"""
     full_name = models.CharField(max_length=255)
     title = models.CharField(max_length=255, help_text="Job title or tagline")
-    bio = models.TextField(blank=True)
+    hero_bio = models.TextField(blank=True, help_text="Bio text displayed in the hero section")
+    about_bio = models.TextField(blank=True, help_text="Bio text displayed in the about section")
     profile_photo = models.ImageField(upload_to='profile/', blank=True, null=True)
     resume_file = models.FileField(upload_to='documents/', blank=True, null=True)
     email = models.EmailField()

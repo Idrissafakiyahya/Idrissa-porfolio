@@ -9,7 +9,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'id', 'full_name', 'title', 'bio', 'profile_photo',
+            'id', 'full_name', 'title', 'hero_bio', 'about_bio', 'profile_photo',
             'resume_file', 'email', 'phone', 'location',
             'github_url', 'linkedin_url', 'instagram_url', 'whatsapp_url'
         ]

@@ -12,7 +12,10 @@ class ProfileAdmin(admin.ModelAdmin):
     search_fields = ['full_name', 'email', 'location']
     fieldsets = (
         ('Basic Information', {
-            'fields': ('full_name', 'title', 'bio', 'location', 'email', 'phone')
+            'fields': ('full_name', 'title', 'location', 'email', 'phone')
+        }),
+        ('Bio Content', {
+            'fields': ('hero_bio', 'about_bio')
         }),
         ('Media', {
             'fields': ('profile_photo', 'resume_file')
