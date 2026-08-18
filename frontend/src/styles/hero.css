@@ -133,6 +133,9 @@
   font-size: var(--font-5xl);
   margin-bottom: var(--spacing-md);
   color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
 
 .hero-title {
@@ -172,10 +175,14 @@
 
 .hero-description {
   font-size: var(--font-lg);
-  line-height: 1.8;
+  line-height: 1.9;
+  letter-spacing: 0.3px;
   margin-bottom: var(--spacing-2xl);
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   max-width: 500px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  word-spacing: 2px;
 }
 
 .hero-actions {
