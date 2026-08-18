@@ -18,6 +18,7 @@ const Projects = () => {
     { value: 'deep_learning', label: 'Deep Learning' },
     { value: 'ai_agent', label: 'AI Agent' },
     { value: 'web_development', label: 'Web Development' },
+    { value: 'competitions', label: 'Competitions & Hackathons' },
     { value: 'environmental', label: 'Environmental' },
   ];
 
