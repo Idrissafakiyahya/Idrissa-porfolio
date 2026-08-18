@@ -96,7 +96,35 @@ export const testimonialsAPI = {
 
 // Contact API
 export const contactAPI = {
-  submitMessage: (data) => api.post('/contact/create_message/', data),
+  submitMessage: async (data) => {
+    const response = await fetch(`${API_BASE_URL}/contact/create_message/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseText = await response.text();
+    let payload = {};
+
+    if (responseText) {
+      try {
+        payload = JSON.parse(responseText);
+      } catch {
+        payload = { detail: responseText };
+      }
+    }
+
+    if (!response.ok) {
+      const error = new Error(payload?.detail || payload?.message || 'Failed to send message. Please try again.');
+      error.response = { data: payload, status: response.status };
+      throw error;
+    }
+
+    return { data: payload };
+  },
 };
 
 export default api;
