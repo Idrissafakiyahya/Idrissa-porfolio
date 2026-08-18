@@ -68,69 +68,73 @@ const Contact = () => {
 
         <div className="contact-content">
           <form className="contact-form animate-slide-up" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Your Name *</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Bchwa Slim Juma"
-                disabled={status === 'loading'}
-              />
-            </div>
+            <fieldset className="form-fieldset">
+              <legend className="form-legend">Send Me a Message</legend>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address *</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="Thunneiya@gmail.com"
-                disabled={status === 'loading'}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="name">Your Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Bchwa Slim Juma"
+                  disabled={status === 'loading'}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="subject">Subject *</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                placeholder="Project Inquiry"
-                disabled={status === 'loading'}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="email">Email Address *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Thunneiya@gmail.com"
+                  disabled={status === 'loading'}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="message">Message *</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="6"
-                placeholder="Tell me about your project or inquiry..."
-                disabled={status === 'loading'}
-              ></textarea>
-            </div>
+              <div className="form-group">
+                <label htmlFor="subject">Subject *</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  placeholder="Project Inquiry"
+                  disabled={status === 'loading'}
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="button"
-              disabled={status === 'loading'}
-            >
-              {status === 'loading' ? 'Sending...' : 'Send Message'}
-            </button>
+              <div className="form-group">
+                <label htmlFor="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="6"
+                  placeholder="Tell me about your project or inquiry..."
+                  disabled={status === 'loading'}
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="button"
+                disabled={status === 'loading'}
+              >
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
+              </button>
+            </fieldset>
           </form>
 
           {status === 'success' && (
