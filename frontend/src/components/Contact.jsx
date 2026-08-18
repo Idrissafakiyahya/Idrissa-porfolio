@@ -45,7 +45,7 @@ const Contact = () => {
     setErrorMessage('');
 
     try {
-      await contactAPI.submitMessage(formData);
+      const response = await contactAPI.submitMessage(formData);
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
       
@@ -54,6 +54,7 @@ const Contact = () => {
     } catch (error) {
       setStatus('error');
       setErrorMessage(getErrorMessage(error));
+      console.error('Contact form error:', error);
     }
   };
 
