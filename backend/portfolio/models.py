@@ -83,12 +83,21 @@ class Project(models.Model):
         ('deep_learning', 'Deep Learning'),
         ('ai_agent', 'AI Agent'),
         ('web_development', 'Web Development'),
+        ('competitions', 'Competitions & Hackathons'),
         ('environmental', 'Environmental Project'),
+    ]
+
+    PROVIDER_CHOICES = [
+        ('zindi', 'Zindi'),
+        ('kaggle', 'Kaggle'),
+        ('driven_data', 'Driven Data'),
+        ('other', 'Other'),
     ]
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='web_development')
+    competition_provider = models.CharField(max_length=20, choices=PROVIDER_CHOICES, blank=True, null=True, help_text="Provider for Competitions & Hackathons category")
     short_description = models.CharField(max_length=500)
     description = models.TextField(help_text="Full project description, can include HTML")
     cover_image = models.ImageField(upload_to='projects/covers/')

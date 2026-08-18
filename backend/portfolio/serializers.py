@@ -40,12 +40,13 @@ class ProjectSerializer(serializers.ModelSerializer):
     gallery_images = ProjectImageSerializer(many=True, read_only=True)
     tech_stack_list = serializers.SerializerMethodField()
     category_display = serializers.CharField(source='get_category_display', read_only=True)
+    competition_provider_display = serializers.CharField(source='get_competition_provider_display', read_only=True)
 
     class Meta:
         model = Project
         fields = [
-            'id', 'title', 'slug', 'category', 'category_display', 'short_description', 'description',
-            'cover_image', 'tech_stack', 'tech_stack_list', 'live_url',
+            'id', 'title', 'slug', 'category', 'category_display', 'competition_provider', 'competition_provider_display', 
+            'short_description', 'description', 'cover_image', 'tech_stack', 'tech_stack_list', 'live_url',
             'github_url', 'featured', 'gallery_images', 'order', 'created_at'
         ]
         read_only_fields = ['id', 'slug', 'created_at']

@@ -80,7 +80,7 @@ class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         ('Project Information', {
-            'fields': ('title', 'slug', 'category', 'short_description', 'description')
+            'fields': ('title', 'slug', 'category', 'competition_provider', 'short_description', 'description')
         }),
         ('Media', {
             'fields': ('cover_image',)
