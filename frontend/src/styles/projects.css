@@ -109,6 +109,14 @@ body.dark-mode .project-card {
   overflow: hidden;
 }
 
+.project-image.no-image {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(148, 163, 184, 0.12));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
 .project-image img {
   width: 100%;
   height: 100%;
@@ -145,7 +153,8 @@ body.dark-mode .project-card {
   z-index: 10;
 }
 
-.category-badge {
+.category-badge,
+.provider-badge {
   background: var(--primary);
   color: white;
   padding: var(--spacing-xs) var(--spacing-md);
@@ -153,6 +162,18 @@ body.dark-mode .project-card {
   font-size: var(--font-xs);
   font-weight: 600;
   z-index: 10;
+}
+
+.provider-badge {
+  background: rgba(14, 165, 233, 0.12);
+  color: #0f172a;
+  border: 1px solid rgba(14, 165, 233, 0.25);
+}
+
+body.dark-mode .provider-badge {
+  color: #e0f2fe;
+  background: rgba(59, 130, 246, 0.18);
+  border-color: rgba(96, 165, 250, 0.4);
 }
 
 .project-content {
