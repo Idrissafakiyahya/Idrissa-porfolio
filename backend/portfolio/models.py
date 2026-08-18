@@ -15,8 +15,8 @@ class Profile(models.Model):
     location = models.CharField(max_length=255, blank=True)
     github_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
-    twitter_url = models.URLField(blank=True)
-    website_url = models.URLField(blank=True)
+    instagram_url = models.URLField(blank=True)
+    whatsapp_url = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

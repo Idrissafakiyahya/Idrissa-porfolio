@@ -34,8 +34,8 @@ class Command(BaseCommand):
                 'location': best_profile.location,
                 'github_url': best_profile.github_url,
                 'linkedin_url': best_profile.linkedin_url,
-                'twitter_url': best_profile.twitter_url,
-                'website_url': best_profile.website_url,
+                'instagram_url': best_profile.instagram_url,
+                'whatsapp_url': best_profile.whatsapp_url,
             }
             
             # Delete all profiles using raw SQL to bypass model protection

@@ -112,24 +112,14 @@ const Hero = () => {
             </div>
 
             <div className="hero-social">
-              {profile.github_url && (
-                <a href={profile.github_url} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                  GitHub
+              {profile.instagram_url && (
+                <a href={profile.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  Instagram
                 </a>
               )}
-              {profile.linkedin_url && (
-                <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  LinkedIn
-                </a>
-              )}
-              {profile.twitter_url && (
-                <a href={profile.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  Twitter
-                </a>
-              )}
-              {profile.website_url && (
-                <a href={profile.website_url} target="_blank" rel="noopener noreferrer" aria-label="Website">
-                  Website
+              {profile.whatsapp_url && (
+                <a href={profile.whatsapp_url} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                  WhatsApp
                 </a>
               )}
             </div>

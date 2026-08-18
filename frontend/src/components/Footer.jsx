@@ -24,19 +24,14 @@ const Footer = () => {
           <div className="footer-section">
             <h3>Connect</h3>
             <div className="social-links">
-              {profile?.github_url && (
-                <a href={profile.github_url} target="_blank" rel="noopener noreferrer">
-                  GitHub
+              {profile?.instagram_url && (
+                <a href={profile.instagram_url} target="_blank" rel="noopener noreferrer">
+                  Instagram
                 </a>
               )}
-              {profile?.linkedin_url && (
-                <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-              )}
-              {profile?.twitter_url && (
-                <a href={profile.twitter_url} target="_blank" rel="noopener noreferrer">
-                  Twitter
+              {profile?.whatsapp_url && (
+                <a href={profile.whatsapp_url} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
                 </a>
               )}
               {profile?.email && (
