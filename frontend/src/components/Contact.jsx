@@ -68,18 +68,6 @@ const Contact = () => {
 
         <div className="contact-content">
           <form className="contact-form animate-slide-up" onSubmit={handleSubmit}>
-            {status === 'success' && (
-              <div className="alert success">
-                ✓ Message sent successfully! Thank you for reaching out. I'll get back to you soon.
-              </div>
-            )}
-
-            {status === 'error' && (
-              <div className="alert error">
-                ✕ {errorMessage}
-              </div>
-            )}
-
             <div className="form-group">
               <label htmlFor="name">Your Name *</label>
               <input
@@ -89,7 +77,7 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                placeholder="John Doe"
+                placeholder="Bchwa Slim Juma"
                 disabled={status === 'loading'}
               />
             </div>
@@ -103,7 +91,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                placeholder="john@example.com"
+                placeholder="Thunneiya@gmail.com"
                 disabled={status === 'loading'}
               />
             </div>
@@ -144,6 +132,18 @@ const Contact = () => {
               {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>
           </form>
+
+          {status === 'success' && (
+            <div className="alert success">
+              ✓ Message sent successfully! Thank you for reaching out. I'll get back to you soon.
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="alert error">
+              ✕ {errorMessage}
+            </div>
+          )}
         </div>
       </div>
     </section>
