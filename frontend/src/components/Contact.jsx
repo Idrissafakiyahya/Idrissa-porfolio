@@ -21,6 +21,24 @@ const Contact = () => {
     }));
   };
 
+  const getErrorMessage = (error) => {
+    const data = error?.response?.data;
+
+    if (typeof data?.message === 'string' && data.message) return data.message;
+    if (typeof data?.detail === 'string' && data.detail) return data.detail;
+
+    if (data?.errors) {
+      if (Array.isArray(data.errors)) return data.errors.join(' ');
+      if (typeof data.errors === 'object') {
+        const messages = Object.values(data.errors).flat();
+        const firstMessage = messages.find((message) => typeof message === 'string' && message);
+        if (firstMessage) return firstMessage;
+      }
+    }
+
+    return error?.message || 'Failed to send message. Please try again.';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -35,11 +53,7 @@ const Contact = () => {
       setTimeout(() => setStatus(null), 5000);
     } catch (error) {
       setStatus('error');
-      setErrorMessage(
-        error.response?.data?.errors?.[0] || 
-        error.message || 
-        'Failed to send message. Please try again.'
-      );
+      setErrorMessage(getErrorMessage(error));
     }
   };
 

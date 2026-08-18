@@ -54,9 +54,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS with support for environment variable and defaults for local/Render
 # Use a leading dot to allow all subdomains (Django accepts '.example.com' for subdomains)
-ALLOWED_HOSTS_DEFAULT = 'localhost,127.0.0.1,.onrender.com'
+ALLOWED_HOSTS_DEFAULT = 'localhost,127.0.0.1,0.0.0.0,testserver,.onrender.com,.vercel.app'
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=ALLOWED_HOSTS_DEFAULT).split(',')
-ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS]
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
 
 # Application definition
 INSTALLED_APPS = [
