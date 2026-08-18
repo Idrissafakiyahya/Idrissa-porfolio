@@ -67,6 +67,21 @@ const Projects = () => {
                       <div className="project-badges">
                         {project.featured && <span className="featured-badge">Featured</span>}
                         <span className="category-badge">{project.category_display}</span>
+                        {project.category === 'competitions' && project.competition_provider_display && (
+                          <span className="provider-badge">{project.competition_provider_display}</span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {!project.cover_image && (
+                    <div className="project-image no-image">
+                      <div className="project-badges">
+                        {project.featured && <span className="featured-badge">Featured</span>}
+                        <span className="category-badge">{project.category_display}</span>
+                        {project.category === 'competitions' && project.competition_provider_display && (
+                          <span className="provider-badge">{project.competition_provider_display}</span>
+                        )}
                       </div>
                     </div>
                   )}

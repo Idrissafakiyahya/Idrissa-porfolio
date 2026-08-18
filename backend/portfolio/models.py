@@ -100,7 +100,7 @@ class Project(models.Model):
     competition_provider = models.CharField(max_length=20, choices=PROVIDER_CHOICES, blank=True, null=True, help_text="Provider for Competitions & Hackathons category")
     short_description = models.CharField(max_length=500)
     description = models.TextField(help_text="Full project description, can include HTML")
-    cover_image = models.ImageField(upload_to='projects/covers/')
+    cover_image = models.ImageField(upload_to='projects/covers/', blank=True, null=True)
     tech_stack = models.CharField(max_length=500, help_text="Comma-separated list of technologies")
     live_url = models.URLField(blank=True)
     github_url = models.URLField(blank=True)
