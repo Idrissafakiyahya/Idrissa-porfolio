@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { contactAPI } from '../services/api';
 import '../styles/contact.css';
 
@@ -45,10 +46,29 @@ const Contact = () => {
     setErrorMessage('');
 
     try {
-      const response = await contactAPI.submitMessage(formData);
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          },
+          publicKey
+        );
+      } else {
+        await contactAPI.submitMessage(formData);
+      }
+
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-      
+
       // Reset success message after 5 seconds
       setTimeout(() => setStatus(null), 5000);
     } catch (error) {

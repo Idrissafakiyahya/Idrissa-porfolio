@@ -10,10 +10,11 @@
     "lint": "eslint . --ext .js,.jsx"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@emailjs/browser": "^4.4.1",
     "axios": "^1.7.2",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
