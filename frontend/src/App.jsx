@@ -11,24 +11,42 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './styles/globals.css';
 
-function App() {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check system preference or localStorage
-    const saved = localStorage.getItem('darkMode');
+const getInitialDarkMode = () => {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    const saved = window.localStorage.getItem('darkMode');
     if (saved !== null) {
       return JSON.parse(saved);
     }
+  } catch (error) {
+    console.warn('Unable to read dark mode preference:', error);
+  }
+
+  if (typeof window.matchMedia === 'function') {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  }
+
+  return false;
+};
+
+function App() {
+  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
 
   useEffect(() => {
-    // Update DOM and localStorage when theme changes
+    if (typeof document === 'undefined') return;
+
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
     } else {
       document.body.classList.remove('dark-mode');
     }
-    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+
+    try {
+      window.localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+    } catch (error) {
+      console.warn('Unable to save dark mode preference:', error);
+    }
   }, [isDarkMode]);
 
   const toggleTheme = () => {
