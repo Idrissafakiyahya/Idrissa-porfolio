@@ -18,9 +18,11 @@ const Skills = () => {
     { value: 'social', label: 'Social' },
   ];
 
-  // `skills` may be null, an array, or an array of objects with different fields.
-  // Normalize to an array of simple skill objects.
-  const normalized = Array.isArray(skills) ? skills : (skills || []);
+  const normalized = Array.isArray(skills)
+    ? skills
+    : Array.isArray(skills?.results)
+      ? skills.results
+      : [];
 
   const filteredSkills = selectedCategory === 'all'
     ? normalized
@@ -59,7 +61,6 @@ const Skills = () => {
                   )}
                   <h4>{skill.name || skill.title || 'Untitled'}</h4>
                   <p className="skill-category">{skill.category_display || skill.category || ''}</p>
-                  {/* Optional fields: if backend doesn't provide proficiency, skip bar */}
                   {typeof skill.proficiency === 'number' && (
                     <div className="skill-proficiency">
                       <div className="proficiency-bar">

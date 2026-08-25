@@ -10,6 +10,12 @@ const Education = () => {
     [selectedCategory]
   );
 
+  const safeEducations = Array.isArray(educations)
+    ? educations
+    : Array.isArray(educations?.results)
+      ? educations.results
+      : [];
+
   const categories = [
     { value: 'education', label: 'Education' },
     { value: 'certificates', label: 'Certificates' },
@@ -46,7 +52,7 @@ const Education = () => {
         <div className="education-grid">
           {loading
             ? Array(3).fill(0).map((_, i) => <EducationSkeleton key={i} />)
-            : educations?.map((edu, idx) => (
+            : safeEducations?.map((edu, idx) => (
                 <div key={edu.id} className="education-card animate-slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
                   <div className="education-content">
                     <div className="education-header">
@@ -70,7 +76,7 @@ const Education = () => {
               ))}
         </div>
 
-        {!loading && educations?.length === 0 && (
+        {!loading && safeEducations?.length === 0 && (
           <div className="empty-state">
             <p>No education entries found.</p>
           </div>

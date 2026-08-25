@@ -15,6 +15,28 @@ const normalizePayload = async (response) => {
   return response;
 };
 
+const getCollectionFromPayload = (payload) => {
+  if (Array.isArray(payload)) {
+    return payload;
+  }
+
+  if (payload && typeof payload === 'object') {
+    if (Array.isArray(payload.results)) {
+      return payload.results;
+    }
+
+    if (payload.data && Array.isArray(payload.data)) {
+      return payload.data;
+    }
+
+    if (payload.data && payload.data.results && Array.isArray(payload.data.results)) {
+      return payload.data.results;
+    }
+  }
+
+  return null;
+};
+
 const getCacheKey = (fetchFunction, dependencies = []) => {
   const functionName = fetchFunction?.name || 'anonymous';
   const dependencyKey = JSON.stringify(dependencies ?? []);
@@ -88,14 +110,8 @@ export const useFetch = (fetchFunction, dependencies = []) => {
           const response = await fetchFunction();
           const payload = await normalizePayload(response);
 
-          let normalizedPayload = null;
-          if (payload && Array.isArray(payload)) {
-            normalizedPayload = payload;
-          } else if (payload && payload.results) {
-            normalizedPayload = payload.results;
-          } else {
-            normalizedPayload = payload;
-          }
+          const collection = getCollectionFromPayload(payload);
+          const normalizedPayload = collection !== null ? collection : payload;
 
           setCachedValue(cacheKey, normalizedPayload);
           return normalizedPayload;

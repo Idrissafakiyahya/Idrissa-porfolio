@@ -6,6 +6,12 @@ import '../styles/testimonials.css';
 const Testimonials = () => {
   const { data: testimonials, loading } = useFetch(() => testimonialsAPI.getTestimonials());
 
+  const safeTestimonials = Array.isArray(testimonials)
+    ? testimonials
+    : Array.isArray(testimonials?.results)
+      ? testimonials.results
+      : [];
+
   const TestimonialSkeleton = () => (
     <div className="testimonial-card skeleton-loader" style={{ height: '200px' }}></div>
   );
@@ -31,7 +37,7 @@ const Testimonials = () => {
         <div className="testimonials-grid">
           {loading
             ? Array(3).fill(0).map((_, i) => <TestimonialSkeleton key={i} />)
-            : testimonials?.map((testimonial, idx) => (
+            : safeTestimonials?.map((testimonial, idx) => (
                 <div key={testimonial.id} className="testimonial-card animate-slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
                   {testimonial.photo && (
                     <img src={testimonial.photo} alt={testimonial.name} className="testimonial-photo" />
@@ -50,7 +56,7 @@ const Testimonials = () => {
               ))}
         </div>
 
-        {!loading && testimonials?.length === 0 && (
+        {!loading && safeTestimonials?.length === 0 && (
           <div className="empty-state">
             <p>No testimonials yet.</p>
           </div>

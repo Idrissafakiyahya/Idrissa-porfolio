@@ -10,6 +10,12 @@ const Experience = () => {
     [selectedCategory]
   );
 
+  const safeExperiences = Array.isArray(experiences)
+    ? experiences
+    : Array.isArray(experiences?.results)
+      ? experiences.results
+      : [];
+
   const categories = [
     { value: 'volunteer', label: 'Volunteer' },
     { value: 'employed', label: 'Employed' },
@@ -46,7 +52,7 @@ const Experience = () => {
         <div className="experience-timeline">
           {loading
             ? Array(3).fill(0).map((_, i) => <ExperienceSkeleton key={i} />)
-            : experiences?.map((exp, idx) => (
+            : safeExperiences?.map((exp, idx) => (
                 <div key={exp.id} className="experience-card animate-slide-in" style={{ animationDelay: `${idx * 0.1}s` }}>
                   {exp.company_logo && (
                     <div className="company-logo">
@@ -79,7 +85,7 @@ const Experience = () => {
               ))}
         </div>
 
-        {!loading && experiences?.length === 0 && (
+        {!loading && safeExperiences?.length === 0 && (
           <div className="empty-state">
             <p>No experience entries found.</p>
           </div>

@@ -12,6 +12,12 @@ const Projects = () => {
     [showFeaturedOnly, selectedCategory]
   );
 
+  const safeProjects = Array.isArray(projects)
+    ? projects
+    : Array.isArray(projects?.results)
+      ? projects.results
+      : [];
+
   const categories = [
     { value: 'data_analysis', label: 'Data Analysis' },
     { value: 'machine_learning', label: 'Machine Learning' },
@@ -59,7 +65,7 @@ const Projects = () => {
         <div className="projects-grid">
           {loading
             ? Array(6).fill(0).map((_, i) => <ProjectSkeleton key={i} />)
-            : projects?.map((project, idx) => (
+            : safeProjects?.map((project, idx) => (
                 <div key={project.id} className="project-card animate-slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
                   {project.cover_image && (
                     <div className="project-image">
@@ -115,7 +121,7 @@ const Projects = () => {
               ))}
         </div>
 
-        {!loading && projects?.length === 0 && (
+        {!loading && safeProjects?.length === 0 && (
           <div className="empty-state">
             <p>No projects found.</p>
           </div>
