@@ -36,6 +36,11 @@
   word-spacing: 2px;
 }
 
+/* Dark mode: make the bio text white for better contrast */
+body.dark-mode .about-text p {
+  color: #ffffff;
+}
+
 .about-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
