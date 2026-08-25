@@ -14,6 +14,7 @@ router.register(r'experience', ExperienceViewSet, basename='experience')
 router.register(r'education', EducationViewSet, basename='education')
 router.register(r'testimonials', TestimonialViewSet, basename='testimonial')
 router.register(r'contact', ContactViewSet, basename='contact')
+router.register(r'visits', VisitViewSet, basename='visit')
 
 urlpatterns = [
     path('', include(router.urls)),

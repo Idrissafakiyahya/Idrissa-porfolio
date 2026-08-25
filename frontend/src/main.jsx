@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { profileAPI } from './services/api'
+import { visitsAPI } from './services/api'
 
 async function setFaviconFromProfile() {
   try {
@@ -25,6 +26,13 @@ async function setFaviconFromProfile() {
 
 // Try to set favicon quickly before mounting React
 setFaviconFromProfile().finally(() => {
+  // record a visit (non-blocking)
+  try {
+    visitsAPI.recordVisit({ path: window.location.pathname }).catch(() => {});
+  } catch (e) {
+    // ignore
+  }
+
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <App />

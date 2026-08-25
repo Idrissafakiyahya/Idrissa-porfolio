@@ -3,6 +3,7 @@ from .models import (
     Profile, Skill, Project, ProjectImage, Experience, 
     Education, Testimonial, ContactMessage
 )
+from .models import Visit
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -106,3 +107,10 @@ class ContactMessageSerializer(serializers.ModelSerializer):
         if not value or len(value.strip()) < 10:
             raise serializers.ValidationError("Message must be at least 10 characters long")
         return value
+
+
+class VisitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Visit
+        fields = ['id', 'path', 'user_agent', 'created_at']
+

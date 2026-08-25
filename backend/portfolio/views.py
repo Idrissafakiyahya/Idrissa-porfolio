@@ -14,6 +14,8 @@ from .serializers import (
     ExperienceSerializer, EducationSerializer, TestimonialSerializer,
     ContactMessageSerializer
 )
+from .models import Visit
+from .serializers import VisitSerializer
 
 
 class ContactThrottle(AnonRateThrottle):
@@ -196,3 +198,38 @@ Received at: {contact_message.created_at}
         except Exception as e:
             # Log the error but don't fail the request
             print(f"Error sending email: {e}")
+
+
+class VisitViewSet(viewsets.ModelViewSet):
+    """Simple endpoint to record visits and return basic stats"""
+    queryset = Visit.objects.all()
+    serializer_class = VisitSerializer
+    http_method_names = ['get', 'post', 'head']
+
+    def create(self, request, *args, **kwargs):
+        path = request.data.get('path', request.META.get('PATH_INFO', '/'))
+        ua = request.META.get('HTTP_USER_AGENT', '')
+        visit = Visit.objects.create(path=path[:255], user_agent=ua[:512])
+        serializer = self.get_serializer(visit)
+        return Response(serializer.data, status=201)
+
+    @action(detail=False, methods=['get'])
+    def stats(self, request):
+        """Return simple aggregated counts: last 7 days, 30 days, 365 days"""
+        from django.utils import timezone
+        from datetime import timedelta
+
+        now = timezone.now()
+        week_ago = now - timedelta(days=7)
+        month_ago = now - timedelta(days=30)
+        year_ago = now - timedelta(days=365)
+
+        week_count = Visit.objects.filter(created_at__gte=week_ago).count()
+        month_count = Visit.objects.filter(created_at__gte=month_ago).count()
+        year_count = Visit.objects.filter(created_at__gte=year_ago).count()
+
+        return Response({
+            'week': week_count,
+            'month': month_count,
+            'year': year_count,
+        })

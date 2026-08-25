@@ -220,3 +220,16 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.name} - {self.subject}"
+
+
+class Visit(models.Model):
+    """Record a simple page visit for analytics"""
+    path = models.CharField(max_length=255, blank=True)
+    user_agent = models.CharField(max_length=512, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Visit to {self.path or '/'} @ {self.created_at.isoformat()}"

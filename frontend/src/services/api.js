@@ -94,6 +94,12 @@ export const testimonialsAPI = {
   getTestimonials: () => api.get('/testimonials/'),
 };
 
+// Visits API - frontend should POST to /visits/ to record a view
+export const visitsAPI = {
+  recordVisit: (data = {}) => api.post('/visits/', data),
+  getStats: () => api.get('/visits/stats/'),
+};
+
 // Contact API
 export const contactAPI = {
   submitMessage: (data) => {
