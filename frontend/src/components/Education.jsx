@@ -16,6 +16,14 @@ const Education = () => {
       ? educations.results
       : [];
 
+  const normalizedEducations = safeEducations.map((edu) => ({
+    ...edu,
+    category: edu.category === 'events' ? 'event' : edu.category,
+    category_display: edu.category_display ||
+      (edu.category === 'certificates' ? 'Certificates' :
+       edu.category === 'event' || edu.category === 'events' ? 'Events' : 'Education'),
+  }));
+
   const categories = [
     { value: 'education', label: 'Education' },
     { value: 'certificates', label: 'Certificates' },
@@ -52,7 +60,7 @@ const Education = () => {
         <div className="education-grid">
           {loading
             ? Array(3).fill(0).map((_, i) => <EducationSkeleton key={i} />)
-            : safeEducations?.map((edu, idx) => (
+            : normalizedEducations?.map((edu, idx) => (
                 <div key={edu.id} className="education-card animate-slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
                   <div className="education-content">
                     <div className="education-header">
@@ -76,7 +84,7 @@ const Education = () => {
               ))}
         </div>
 
-        {!loading && safeEducations?.length === 0 && (
+        {!loading && normalizedEducations?.length === 0 && (
           <div className="empty-state">
             <p>No education entries found.</p>
           </div>

@@ -38,9 +38,9 @@ const getCollectionFromPayload = (payload) => {
 };
 
 const getCacheKey = (fetchFunction, dependencies = []) => {
-  const functionName = fetchFunction?.name || 'anonymous';
+  const functionSignature = fetchFunction?.toString?.() || String(fetchFunction || 'anonymous');
   const dependencyKey = JSON.stringify(dependencies ?? []);
-  return `${functionName}:${dependencyKey}`;
+  return `${functionSignature}:${dependencyKey}`;
 };
 
 const getCachedValue = (cacheKey) => {

@@ -170,6 +170,7 @@ class Education(models.Model):
         ('education', 'Education'),
         ('certificates', 'Certificates'),
         ('event', 'Event'),
+        ('events', 'Events'),
     ]
 
     institution = models.CharField(max_length=255)
