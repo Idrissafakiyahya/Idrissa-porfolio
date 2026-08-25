@@ -4,6 +4,9 @@ from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import AllowAny
 
 from .models import (
     Profile, Skill, Project, Experience, 
@@ -142,11 +145,14 @@ class TestimonialViewSet(viewsets.ReadOnlyModelViewSet):
     throttle_classes = []
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ContactViewSet(viewsets.ViewSet):
     """Endpoint for submitting contact messages"""
     throttle_classes = [ContactThrottle]
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
-    @action(detail=False, methods=['post'], throttle_classes=[ContactThrottle])
+    @action(detail=False, methods=['post'], throttle_classes=[ContactThrottle], permission_classes=[AllowAny])
     def create_message(self, request):
         """Create a contact message and send email notification"""
         serializer = ContactMessageSerializer(data=request.data)
@@ -200,11 +206,14 @@ Received at: {contact_message.created_at}
             print(f"Error sending email: {e}")
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class VisitViewSet(viewsets.ModelViewSet):
     """Simple endpoint to record visits and return basic stats"""
     queryset = Visit.objects.all()
     serializer_class = VisitSerializer
     http_method_names = ['get', 'post', 'head']
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def create(self, request, *args, **kwargs):
         path = request.data.get('path', request.META.get('PATH_INFO', '/'))
