@@ -42,6 +42,22 @@ body.dark-mode .filter-btn {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--spacing-lg);
+  max-height: 660px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.skills-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.skills-grid::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 999px;
+}
+
+.skills-grid::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .skill-card {
@@ -52,6 +68,7 @@ body.dark-mode .filter-btn {
   text-align: center;
   transition: var(--transition);
   cursor: pointer;
+  min-height: 170px;
 }
 
 body.dark-mode .skill-card {
@@ -128,6 +145,7 @@ body.dark-mode .proficiency-bar {
   .skills-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: var(--spacing-md);
+    max-height: 500px;
   }
 
   .skills-filters {
