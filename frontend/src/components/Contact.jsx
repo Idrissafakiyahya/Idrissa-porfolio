@@ -132,7 +132,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="Bchwa Slim Juma"
+                  placeholder="Abdul majid faki yahya"
                   disabled={status === 'loading'}
                 />
               </div>
@@ -146,7 +146,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="Thunneiya@gmail.com"
+                  placeholder="Fatmafakiyahya@gmail.com"
                   disabled={status === 'loading'}
                 />
               </div>
