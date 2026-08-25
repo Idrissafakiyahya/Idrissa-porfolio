@@ -81,6 +81,22 @@ body.dark-mode .category-btn.active {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--spacing-lg);
+  max-height: 760px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.projects-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 999px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .project-card {
@@ -236,6 +252,7 @@ body.dark-mode .tech-tag {
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+    max-height: 620px;
   }
 
   .project-links {
