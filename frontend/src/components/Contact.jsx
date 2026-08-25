@@ -37,7 +37,19 @@ const Contact = () => {
       }
     }
 
-    return error?.message || 'Failed to send message. Please try again.';
+    if (typeof error?.text === 'string' && error.text) {
+      return error.text;
+    }
+
+    if (typeof error?.message === 'string' && error.message) {
+      return error.message;
+    }
+
+    if (typeof error?.status === 'number') {
+      return `Request failed with status ${error.status}. Please verify the EmailJS or backend configuration.`;
+    }
+
+    return 'Failed to send message. Please check your EmailJS or backend settings and try again.';
   };
 
   const handleSubmit = async (e) => {
@@ -45,32 +57,52 @@ const Contact = () => {
     setStatus('loading');
     setErrorMessage('');
 
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    let emailSent = false;
+    let backendSaved = false;
+    let lastError = null;
+
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const promises = [];
 
       if (serviceId && templateId && publicKey) {
-        await emailjs.send(
-          serviceId,
-          templateId,
-          {
-            from_name: formData.name,
-            from_email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-          },
-          publicKey
+        promises.push(
+          emailjs.send(
+            serviceId,
+            templateId,
+            {
+              from_name: formData.name,
+              from_email: formData.email,
+              subject: formData.subject,
+              message: formData.message,
+            },
+            publicKey
+          )
+            .then(() => { emailSent = true; })
+            .catch((err) => { lastError = err; console.warn('EmailJS error', err); })
         );
-      } else {
-        await contactAPI.submitMessage(formData);
       }
 
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      // also attempt to save to backend so messages are available in admin
+      promises.push(
+        contactAPI.submitMessage(formData)
+          .then(() => { backendSaved = true; })
+          .catch((err) => { lastError = err; console.warn('Backend save error', err); })
+      );
 
-      // Reset success message after 5 seconds
-      setTimeout(() => setStatus(null), 5000);
+      await Promise.all(promises);
+
+      if (backendSaved || emailSent) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setStatus(null), 5000);
+      } else {
+        setStatus('error');
+        setErrorMessage(getErrorMessage(lastError));
+      }
     } catch (error) {
       setStatus('error');
       setErrorMessage(getErrorMessage(error));
