@@ -4,10 +4,11 @@ import { skillsAPI } from '../services/api';
 import '../styles/skills.css';
 
 const Skills = () => {
-  const [selectedCategory, setSelectedCategory] = useState('data_science');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const { data: skills, loading } = useFetch(() => skillsAPI.getSkills());
 
   const categories = [
+    { value: 'all', label: 'All Skills' },
     { value: 'data_science', label: 'Data Science' },
     { value: 'ml_ai', label: 'Machine Learning & AI' },
     { value: 'web_development', label: 'Web Development' },
@@ -19,7 +20,9 @@ const Skills = () => {
       ? skills.results
       : [];
 
-  const filteredSkills = normalized.filter(skill => (skill.category || '').toString() === selectedCategory);
+  const filteredSkills = selectedCategory === 'all'
+    ? normalized
+    : normalized.filter(skill => (skill.category || '').toString() === selectedCategory);
 
   const SkillSkeleton = () => (
     <div className="skill-card skeleton-loader" style={{ height: '120px' }}></div>
