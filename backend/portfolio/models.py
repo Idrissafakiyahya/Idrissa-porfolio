@@ -169,7 +169,6 @@ class Education(models.Model):
     CATEGORY_CHOICES = [
         ('education', 'Education'),
         ('certificates', 'Certificates'),
-        ('event', 'Event'),
         ('events', 'Events'),
     ]
 

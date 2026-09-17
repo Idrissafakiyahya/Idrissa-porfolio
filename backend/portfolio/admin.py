@@ -160,12 +160,12 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
-    list_display = ['degree', 'institution', 'field', 'end_date', 'order']
-    list_filter = ['end_date', 'field']
+    list_display = ['degree', 'institution', 'field', 'category', 'end_date', 'order']
+    list_filter = ['category', 'end_date', 'field']
     search_fields = ['institution', 'degree', 'field']
     fieldsets = (
         ('Education Details', {
-            'fields': ('institution', 'degree', 'field', 'description')
+            'fields': ('institution', 'degree', 'field', 'category', 'description')
         }),
         ('Dates', {
             'fields': ('start_date', 'end_date')

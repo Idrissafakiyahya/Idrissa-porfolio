@@ -18,16 +18,15 @@ const Education = () => {
 
   const normalizedEducations = safeEducations.map((edu) => ({
     ...edu,
-    category: edu.category === 'events' ? 'event' : edu.category,
     category_display: edu.category_display ||
       (edu.category === 'certificates' ? 'Certificates' :
-       edu.category === 'event' || edu.category === 'events' ? 'Events' : 'Education'),
+       edu.category === 'events' ? 'Events' : 'Education'),
   }));
 
   const categories = [
     { value: 'education', label: 'Education' },
     { value: 'certificates', label: 'Certificates' },
-    { value: 'event', label: 'Events' },
+    { value: 'events', label: 'Events' },
   ];
 
   const formatDate = (date) => {
