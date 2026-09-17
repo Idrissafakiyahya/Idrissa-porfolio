@@ -12,6 +12,10 @@ const Skills = () => {
     { value: 'data_science', label: 'Data Science' },
     { value: 'ml_ai', label: 'Machine Learning & AI' },
     { value: 'web_development', label: 'Web Development' },
+    { value: 'databases', label: 'Databases' },
+    { value: 'tools_platforms', label: 'Tools & Platforms' },
+    { value: 'cloud', label: 'Cloud' },
+    { value: 'social', label: 'Social' },
   ];
 
   const normalized = Array.isArray(skills)
