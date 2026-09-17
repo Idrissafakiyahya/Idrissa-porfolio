@@ -70,12 +70,16 @@ body.dark-mode .testimonial-card {
 .star {
   width: 16px;
   height: 16px;
-  fill: #dbeafe;
+  fill: #0f172a;
   transition: transform 0.2s ease;
 }
 
+body.dark-mode .star {
+  fill: #ffffff;
+}
+
 .star.filled {
-  fill: #fbbf24;
+  fill: inherit;
 }
 
 .stars:hover .star {
