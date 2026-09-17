@@ -19,9 +19,16 @@ const Testimonials = () => {
   const renderStars = (rating) => {
     if (!rating) return null;
     return (
-      <div className="stars">
-        {Array(rating).fill(0).map((_, i) => (
-          <span key={i}>⭐</span>
+      <div className="stars" aria-label={`${rating} out of 5 stars`}>
+        {Array.from({ length: 5 }, (_, i) => (
+          <svg
+            key={i}
+            className={i < rating ? 'star filled' : 'star'}
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
         ))}
       </div>
     );
