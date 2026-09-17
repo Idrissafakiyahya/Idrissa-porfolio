@@ -65,6 +65,7 @@ const Hero = () => {
 
   return (
     <section id="hero" className="hero">
+      <div className="hero-stars" aria-hidden="true"></div>
       <div className="container">
         <div className="hero-content animate-slide-up">
           <div className="hero-heading">
@@ -97,14 +98,14 @@ const Hero = () => {
             <p className="hero-description">{profile.hero_bio}</p>
 
             <div className="hero-actions">
-              <a href={`mailto:${profile.email}`} className="button">
+              <a href={`mailto:${profile.email}`} className="button primary">
                 Get in Touch
               </a>
               {profile.resume_file && (
                 <a 
                   href={profile.resume_file} 
                   download="resume"
-                  className="button secondary"
+                  className="button outline"
                 >
                   Download Resume
                 </a>
