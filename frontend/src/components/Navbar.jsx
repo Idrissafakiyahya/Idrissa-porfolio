@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 import { profileAPI } from '../services/api';
 import '../styles/navbar.css';
@@ -30,6 +31,8 @@ const MoonIcon = () => (
 const Navbar = ({ onThemeToggle, isDarkMode }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
+  const navigate = useNavigate();
+  const location = useLocation();
   const { data: profile } = useFetch(() => profileAPI.getProfile());
 
   useEffect(() => {
@@ -53,6 +56,11 @@ const Navbar = ({ onThemeToggle, isDarkMode }) => {
   }, []);
 
   const scrollToSection = (id) => {
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollToSection: id } });
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });

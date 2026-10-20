@@ -72,12 +72,20 @@ class SkillAdmin(admin.ModelAdmin):
     icon_preview.short_description = "Icon"
 
 
+class ProjectImageInline(admin.TabularInline):
+    model = ProjectImage
+    extra = 1
+    fields = ('image', 'caption', 'short_description', 'order')
+    ordering = ('order',)
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'featured', 'cover_image_preview', 'live_url_display', 'order']
     list_filter = ['category', 'featured', 'created_at']
     search_fields = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
+    inlines = [ProjectImageInline]
     fieldsets = (
         ('Project Information', {
             'fields': ('title', 'slug', 'category', 'competition_provider', 'short_description', 'description')
@@ -108,7 +116,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(ProjectImage)
 class ProjectImageAdmin(admin.ModelAdmin):
-    list_display = ['project', 'image_preview', 'caption', 'order']
+    list_display = ['project', 'image_preview', 'caption', 'short_description', 'order']
     list_filter = ['project']
     ordering = ['project', 'order']
 

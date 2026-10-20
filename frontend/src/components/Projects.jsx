@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 import { projectsAPI } from '../services/api';
 import '../styles/projects.css';
@@ -6,7 +7,8 @@ import '../styles/projects.css';
 const Projects = () => {
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('data_analysis');
-  
+  const navigate = useNavigate();
+
   const { data: projects, loading } = useFetch(
     () => projectsAPI.getProjects(showFeaturedOnly, selectedCategory),
     [showFeaturedOnly, selectedCategory]
@@ -27,6 +29,10 @@ const Projects = () => {
     { value: 'competitions', label: 'Competitions & Hackathons' },
     { value: 'environmental', label: 'Environmental' },
   ];
+
+  const handleCardClick = (slug) => {
+    navigate(`/projects/${slug}`);
+  };
 
   const ProjectSkeleton = () => (
     <div className="project-card skeleton-loader" style={{ height: '350px' }}></div>
@@ -66,7 +72,20 @@ const Projects = () => {
           {loading
             ? Array(6).fill(0).map((_, i) => <ProjectSkeleton key={i} />)
             : safeProjects?.map((project, idx) => (
-                <div key={project.id} className="project-card animate-slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
+                <div
+                  key={project.id}
+                  className="project-card animate-slide-up"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                  onClick={() => handleCardClick(project.slug)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCardClick(project.slug);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                >
                   {project.cover_image && (
                     <div className="project-image">
                       <img src={project.cover_image} alt={project.title} />
@@ -94,7 +113,6 @@ const Projects = () => {
                   
                   <div className="project-content">
                     <h3>{project.title}</h3>
-                    <p className="project-description">{project.short_description}</p>
                     
                     {project.tech_stack_list && (
                       <div className="tech-stack">
@@ -105,13 +123,34 @@ const Projects = () => {
                     )}
 
                     <div className="project-links">
+                      <a
+                        href={`/projects/${project.slug}`}
+                        className="button secondary small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        View Details
+                      </a>
                       {project.live_url && (
-                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="button small">
+                        <a
+                          href={project.live_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="button small"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           View Live
                         </a>
                       )}
                       {project.github_url && (
-                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="button secondary small">
+                        <a
+                          href={project.github_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="button secondary small"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           GitHub
                         </a>
                       )}

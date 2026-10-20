@@ -33,7 +33,7 @@ class SkillSerializer(serializers.ModelSerializer):
 class ProjectImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectImage
-        fields = ['id', 'image', 'caption', 'order']
+        fields = ['id', 'image', 'caption', 'short_description', 'order']
         read_only_fields = ['id']
 
 
@@ -42,18 +42,21 @@ class ProjectSerializer(serializers.ModelSerializer):
     tech_stack_list = serializers.SerializerMethodField()
     category_display = serializers.CharField(source='get_category_display', read_only=True)
     competition_provider_display = serializers.CharField(source='get_competition_provider_display', read_only=True)
+    project_type_display = serializers.CharField(source='get_project_type_display', read_only=True)
 
     class Meta:
         model = Project
         fields = [
-            'id', 'title', 'slug', 'category', 'category_display', 'competition_provider', 'competition_provider_display', 
+            'id', 'title', 'slug', 'category', 'project_type', 'project_type_display', 'category_display', 'competition_provider', 'competition_provider_display', 
             'short_description', 'description', 'cover_image', 'tech_stack', 'tech_stack_list', 'live_url',
-            'github_url', 'featured', 'gallery_images', 'order', 'created_at'
+            'github_url', 'research_paper_url', 'featured', 'gallery_images', 'order', 'created_at'
         ]
         read_only_fields = ['id', 'slug', 'created_at']
 
     def get_tech_stack_list(self, obj):
-        return [tech.strip() for tech in obj.tech_stack.split(',')]
+        if not obj.tech_stack:
+            return []
+        return [tech.strip() for tech in obj.tech_stack.split(',') if tech.strip()]
 
 
 class ExperienceSerializer(serializers.ModelSerializer):

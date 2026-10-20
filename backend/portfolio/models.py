@@ -85,6 +85,12 @@ class Project(models.Model):
         ('web_development', 'Web Development'),
         ('competitions', 'Competitions & Hackathons'),
         ('environmental', 'Environmental Project'),
+        ('research', 'Research'),
+    ]
+
+    PROJECT_TYPE_CHOICES = [
+        ('project', 'Project'),
+        ('research', 'Research'),
     ]
 
     PROVIDER_CHOICES = [
@@ -97,6 +103,7 @@ class Project(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='web_development')
+    project_type = models.CharField(max_length=20, choices=PROJECT_TYPE_CHOICES, default='project')
     competition_provider = models.CharField(max_length=20, choices=PROVIDER_CHOICES, blank=True, null=True, help_text="Provider for Competitions & Hackathons category")
     short_description = models.CharField(max_length=500)
     description = models.TextField(help_text="Full project description, can include HTML")
@@ -104,6 +111,7 @@ class Project(models.Model):
     tech_stack = models.CharField(max_length=500, help_text="Comma-separated list of technologies")
     live_url = models.URLField(blank=True)
     github_url = models.URLField(blank=True)
+    research_paper_url = models.URLField(blank=True, help_text="Link to a research paper or publication")
     featured = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -118,6 +126,8 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        if self.category == 'research' and self.project_type == 'project':
+            self.project_type = 'research'
         super().save(*args, **kwargs)
 
 
@@ -126,6 +136,7 @@ class ProjectImage(models.Model):
     project = models.ForeignKey(Project, related_name='gallery_images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='projects/gallery/')
     caption = models.CharField(max_length=255, blank=True)
+    short_description = models.CharField(max_length=255, blank=True, help_text="Short description of this image")
     order = models.IntegerField(default=0)
 
     class Meta:
