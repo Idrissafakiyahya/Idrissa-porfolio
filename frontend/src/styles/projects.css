@@ -100,23 +100,27 @@ body.dark-mode .category-btn.active {
 }
 
 .project-card {
-  background: var(--white);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.07);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, filter 0.28s ease;
   display: flex;
   flex-direction: column;
 }
 
 body.dark-mode .project-card {
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 16px 28px rgba(2, 6, 23, 0.28);
 }
 
 .project-card:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-8px);
+  box-shadow: 0 18px 32px rgba(15, 23, 42, 0.12);
+  transform: translateY(-6px);
+  border-color: rgba(59, 130, 246, 0.28);
+  filter: saturate(1.04);
 }
 
 .project-image {
@@ -155,12 +159,13 @@ body.dark-mode .project-card {
   font-size: var(--font-sm);
   font-weight: 700;
   z-index: 10;
+  box-shadow: 0 10px 20px rgba(245, 158, 11, 0.26);
 }
 
 /* Project Badges Container */
 .project-badges {
   position: absolute;
-  top: var(--spacing-md);
+  top: calc(var(--spacing-md) + 42px);
   right: var(--spacing-md);
   display: flex;
   gap: var(--spacing-sm);
@@ -249,17 +254,114 @@ body.dark-mode .tech-tag {
   text-align: center;
 }
 
+.projects-marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 18px 0 20px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(148, 163, 184, 0.07));
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.projects-marquee:hover {
+  box-shadow: 0 24px 55px rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.22);
+  transform: translateY(-2px);
+}
+
+.projects-marquee::before,
+.projects-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 110px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.projects-marquee::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0));
+}
+
+.projects-marquee::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0));
+}
+
+body.dark-mode .projects-marquee {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.38));
+  border-color: rgba(148, 163, 184, 0.18);
+  box-shadow: 0 18px 45px rgba(2, 6, 23, 0.26);
+}
+
+body.dark-mode .projects-marquee::before {
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0));
+}
+
+body.dark-mode .projects-marquee::after {
+  background: linear-gradient(to left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0));
+}
+
+.projects-track {
+  display: flex;
+  width: max-content;
+  gap: var(--spacing-lg);
+  animation: marqueeScroll 64s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.projects-marquee:hover .projects-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-project-card {
+  flex: 0 0 360px;
+  width: 360px;
+  max-width: 360px;
+}
+
 @media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-    max-height: 620px;
+  .projects-marquee {
+    padding: 12px 0 14px;
+    border-radius: 22px;
   }
 
-  .project-links {
-    flex-direction: column;
+  .projects-track {
+    animation-duration: 40s;
   }
 
-  .button.small {
-    flex: none;
+  .marquee-project-card {
+    flex-basis: 290px;
+    width: 290px;
+    max-width: 290px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-track {
+    animation: none;
+    transform: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .projects-marquee:hover .projects-track {
+    animation: none;
   }
 }
