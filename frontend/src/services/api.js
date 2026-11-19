@@ -24,21 +24,38 @@ try {
 // Create axios instance with default config
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Add a response interceptor to handle errors
+// Render can take roughly a minute to wake a sleeping backend.
+// Retry transient network errors/timeout responses instead of failing immediately.
 api.interceptors.response.use(
   response => response,
-  error => {
+  async error => {
+    const config = error.config;
+    const shouldRetry = config && (
+      !error.response ||
+      error.code === 'ECONNABORTED' ||
+      error.response.status >= 500
+    );
+
+    if (shouldRetry) {
+      config.__retryCount = (config.__retryCount || 0) + 1;
+      if (config.__retryCount <= 3) {
+        const delay = 1500 * (2 ** (config.__retryCount - 1));
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return api(config);
+      }
+    }
+
     if (error.response?.status === 404) {
       console.error('Resource not found');
     } else if (error.response?.status === 500) {
       console.error('Server error');
-    } else if (error.message === 'Network Error') {
+    } else if (error.message === 'Network Error' || error.code === 'ECONNABORTED') {
       console.error('Network error - cannot reach the API');
     }
     return Promise.reject(error);

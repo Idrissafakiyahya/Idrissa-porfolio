@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const CACHE_TTL_MS = 10 * 60 * 1000;
+const CACHE_TTL_MS = 30 * 60 * 1000;
 const inFlightRequests = new Map();
 
 const normalizePayload = async (response) => {
@@ -49,8 +49,10 @@ const getCachedValue = (cacheKey) => {
     if (!cached) return null;
 
     const parsed = JSON.parse(cached);
-    const isFresh = parsed.expiresAt > Date.now();
-    return isFresh ? parsed.value : null;
+    return {
+      value: parsed.value,
+      isFresh: parsed.expiresAt > Date.now(),
+    };
   } catch {
     return null;
   }
@@ -81,21 +83,20 @@ export const useFetch = (fetchFunction, dependencies = []) => {
 
     const hydrateFromCache = () => {
       const cachedData = getCachedValue(cacheKey);
-      if (cachedData) {
-        setData(cachedData);
-        setLoading(false);
-        setError(null);
-        return true;
-      }
-      return false;
+      if (!cachedData) return 'missing';
+
+      setData(cachedData.value);
+      setError(null);
+      setLoading(false);
+      return cachedData.isFresh ? 'fresh' : 'stale';
     };
 
     const fetchData = async () => {
       try {
-        const cachedResult = hydrateFromCache();
-        if (cachedResult) return;
+        const cacheState = hydrateFromCache();
+        if (cacheState === 'fresh') return;
 
-        setLoading(true);
+        setLoading(cacheState === 'missing');
         setError(null);
 
         if (inFlightRequests.has(cacheKey)) {

@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import { profileAPI } from './services/api'
-import { visitsAPI } from './services/api'
+import { profileAPI, visitsAPI } from './services/api'
 
 async function setFaviconFromProfile() {
   try {
@@ -18,24 +17,22 @@ async function setFaviconFromProfile() {
       }
       link.href = url;
     }
-  } catch (e) {
-    // ignore - leave existing favicon
-    // console.warn('Could not set favicon from profile', e);
+  } catch (error) {
+    // The portfolio UI must not wait for the backend cold start.
   }
 }
 
-// Try to set favicon quickly before mounting React
-setFaviconFromProfile().finally(() => {
-  // record a visit (non-blocking)
-  try {
-    visitsAPI.recordVisit({ path: window.location.pathname }).catch(() => {});
-  } catch (e) {
-    // ignore
-  }
+// Mount immediately. Backend requests continue in the background.
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
 
-  ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-  )
-});
+setFaviconFromProfile()
+
+try {
+  visitsAPI.recordVisit({ path: window.location.pathname }).catch(() => {})
+} catch (error) {
+  // Visit tracking is optional and must never delay rendering.
+}
